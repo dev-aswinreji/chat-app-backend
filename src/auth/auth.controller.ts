@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Post } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthDto } from "./dto";
 
@@ -16,5 +16,10 @@ export class AuthController {
 
     logout() {
         return 'logout'
+    }
+
+    @Delete('delete')
+    dropCollection() {
+        return this.service.dropCollection()
     }
 }
