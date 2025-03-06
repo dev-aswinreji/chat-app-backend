@@ -11,7 +11,7 @@ export class AuthService {
     constructor(
         @InjectModel('User') private readonly userModel: Model<User>
     ) { }
-    login(dto: AuthDto) {
+    signup(dto: AuthDto) {
         const newUser = new this.userModel(dto);
         return newUser.save()
     }
