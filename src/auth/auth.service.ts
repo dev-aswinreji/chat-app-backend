@@ -35,7 +35,8 @@ export class AuthService {
         if (!user) {
             throw new NotFoundException()
         }
-        const hash = argon.verify(user.password, password)
+        const hash = await argon.verify(user.password, password)
+        console.log(hash)
         if (!hash) {
             throw new UnauthorizedException()
         }
