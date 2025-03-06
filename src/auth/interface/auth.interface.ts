@@ -5,4 +5,5 @@ export interface User extends Document {
     email: string;
     gender: string;
     password: string;
+    profilePic: string;
 }
