@@ -14,13 +14,13 @@ export class MessageService {
     ) { }
 
     async getMessages(user: User, receiverId: string) {
+
         const senderId: string = user.id
-        console.log(senderId, 'sender id in getMesages    ')
-        console.log(receiverId, 'recierver id is getmess');
 
         const conversation = await this.conversationService.getConversation(senderId, receiverId)
         await conversation.populate("messages")
         return conversation.messages
+
     }
 
 
