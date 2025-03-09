@@ -20,10 +20,10 @@ export class AuthService {
     ) { }
     async signup(dto: AuthSignupDto) {
 
-        const isEmailExists = await this.userModel.findOne({ email: dto.email })
-        if (isEmailExists) {
-            throw new ConflictException("Email already exists")
-        }
+        // const isEmailExists = await this.userModel.findOne({ email: dto.email })
+        // if (isEmailExists) {
+        //     throw new ConflictException("Email already exists")
+        // }
         const isUsernameExists = await this.userModel.findOne({ username: dto.username })
         if (isUsernameExists) {
             throw new ConflictException("Username already exists")
@@ -36,7 +36,7 @@ export class AuthService {
 
         const user = {
             username: dto.username,
-            email: dto.email,
+            // email: dto.email,
             password: dto.password,
             gender: dto.gender,
             profilePic: dto.gender === "male" ? boyProfilePic : girlProfilePic,

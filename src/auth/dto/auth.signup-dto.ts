@@ -1,10 +1,10 @@
 import { IsEmail, IsNotEmpty, IsString, IsStrongPassword, MinLength } from "class-validator";
 
 export class AuthSignupDto {
-    @IsString()
-    @IsNotEmpty()
-    @IsEmail()
-    email: string;
+    // @IsString()
+    // @IsNotEmpty()
+    // @IsEmail()
+    // email: string;
 
     @IsString()
     @IsNotEmpty()
