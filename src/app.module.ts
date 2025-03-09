@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConversationModule } from './conversation/conversation.module';
 import { MessageModule } from './message/message.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { MessageModule } from './message/message.module';
     AuthModule,
     MessageModule,
     ConversationModule,
+    UserModule,
   ],
   providers: [],
   controllers: [],
