@@ -3,6 +3,7 @@ import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { Conversation } from "./interface";
 import { Message } from "src/message/interface";
+import { User } from "src/auth/interface";
 
 Injectable({})
 export class ConversationService {

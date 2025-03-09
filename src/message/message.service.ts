@@ -12,7 +12,20 @@ export class MessageService {
         private readonly conversationService: ConversationService,
 
     ) { }
+
+    async getMessages(user: User, receiverId: string) {
+        const senderId: string = user.id
+        console.log(senderId, 'sender id in getMesages    ')
+        console.log(receiverId, 'recierver id is getmess');
+
+        const conversation = await this.conversationService.getConversation(senderId, receiverId)
+        await conversation.populate("messages")
+        return conversation.messages
+    }
+
+
     async sendMessage(user: User, id: string, { message }: Message) {
+
         const receiverId = id
         const senderId = user.id
 
@@ -28,4 +41,5 @@ export class MessageService {
 
         return newMessage
     }
+
 }
