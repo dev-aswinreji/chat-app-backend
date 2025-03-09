@@ -6,5 +6,7 @@ import { Message } from "./interface";
 Injectable({})
 export class MessageService {
     constructor(@InjectModel('Message') private readonly messageModel: Model<Message>) { }
-    
+    async sendMessage(id: string ) {
+        return id
+    }
 }
