@@ -1,13 +1,6 @@
-import mongoose, { Document } from "mongoose";
+import { Document, Types } from "mongoose";
 
 export interface Conversation extends Document {
-    participants: [{
-        type: mongoose.Types.ObjectId,
-        ref: mongoose.RefType
-    }],
-    message: [{
-        type: mongoose.Types.ObjectId,
-        ref: mongoose.RefType,
-        default: []
-    }]
+    participants: Types.ObjectId[]
+    messages: Types.ObjectId[]
 }

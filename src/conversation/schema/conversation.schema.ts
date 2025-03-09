@@ -1,17 +1,17 @@
 import { Schema } from "mongoose";
 
 export const ConversationSchema = new Schema({
-    participants:[
+    participants: [
         {
-            type:Schema.Types.ObjectId,
-            ref:"User"
+            type: Schema.Types.ObjectId,
+            ref: "User"
         }
     ],
-    message: [
+    messages: [
         {
-            type:Schema.Types.ObjectId,
-            ref:"Message",
-            default:[]
+            type: Schema.Types.ObjectId,
+            ref: "Message",
+            default: []
         }
     ]
-},{timestamps:true})
+}, { timestamps: true })
