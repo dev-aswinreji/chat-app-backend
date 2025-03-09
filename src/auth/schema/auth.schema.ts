@@ -7,4 +7,4 @@ export const UserSchema = new Schema({
     gender: { type: String, required: true },
     profilePic: { type: String, required: true }
 
-})
+}, { timestamps: true })
