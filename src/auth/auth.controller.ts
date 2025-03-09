@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, HttpCode, Post } from "@nestjs/common";
+import { Body, Controller, Delete, HttpCode, Post, Response, ResponseDecoratorOptions } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthSignupDto } from "./dto";
 import { AuthLoginDto } from "./dto/auth.login-dto";
@@ -13,8 +13,15 @@ export class AuthController {
 
     @HttpCode(200)
     @Post('login')
-    login(@Body() dto: AuthLoginDto) {
-        return this.service.login(dto)
+    login(@Body() dto: AuthLoginDto, @Response() res: any) {
+        const token = this.service.login(dto)
+        res.cookie('jwt', token, {
+            maxAge: new Date(new Date().getTime() + 30 * 1000),
+            sameSite: 'strict',
+            httpOnly: true,
+        })
+        return token
+
     }
 
     logout() {
