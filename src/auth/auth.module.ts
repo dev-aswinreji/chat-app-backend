@@ -15,7 +15,8 @@ import { AuthController } from "./auth.controller";
     providers: [
         AuthService,
         JwtStrategy
-    ]
+    ],
+    exports: [AuthService]
 
 })
 

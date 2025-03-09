@@ -1,6 +1,6 @@
 import { ConflictException, Injectable, InternalServerErrorException, NotFoundException, UnauthorizedException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
-import { Model } from "mongoose";
+import { Model, Types } from "mongoose";
 import * as argon from 'argon2';
 import { User } from "./interface";
 import { AuthSignupDto } from "./dto";
@@ -81,6 +81,9 @@ export class AuthService {
         }
     }
 
+    async getUsersForSidebar(loggedUserId: Types.ObjectId) {
+        return await this.userModel.find({ _id: { $ne: loggedUserId } }).select("-password")
+    }
     logout() {
         return 'logout success'
     }
