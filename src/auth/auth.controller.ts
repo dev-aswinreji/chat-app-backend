@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, HttpCode, Post, Response, ResponseDecoratorOptions } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, Post, Res, Response } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { AuthSignupDto } from "./dto";
 import { AuthLoginDto } from "./dto/auth.login-dto";
@@ -13,19 +13,25 @@ export class AuthController {
 
     @HttpCode(200)
     @Post('login')
-    login(@Body() dto: AuthLoginDto, @Response() res: any) {
-        const token = this.service.login(dto)
-        res.cookie('jwt', token, {
-            maxAge: new Date(new Date().getTime() + 30 * 1000),
+    async login(@Body() dto: AuthLoginDto, @Res({ passthrough: true }) res: any) {
+        const { access_token } = await this.service.login(dto)
+        console.log(access_token, 'inside controller ');
+        res.cookie('access_token', access_token, {
+            maxAge: 30 * 10000 ,
             sameSite: 'strict',
             httpOnly: true,
         })
-        return token
-
+        console.log('before retrn token');
+        return access_token
     }
 
-    logout() {
-        return 'logout'
+    @HttpCode(200)
+    @Post('logout')
+    logout(@Res({ passthrough: true }) res: any) {
+        res.cookie('access_token', "", {
+            maxAge: 0
+        })
+        return this.service.logout()
     }
 
     @Delete('delete')

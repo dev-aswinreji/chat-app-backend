@@ -80,4 +80,8 @@ export class AuthService {
             access_token: token
         }
     }
+
+    logout() {
+        return 'logout success'
+    }
 }
