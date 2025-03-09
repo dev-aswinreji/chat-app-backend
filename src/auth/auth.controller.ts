@@ -17,7 +17,7 @@ export class AuthController {
         const { access_token } = await this.service.login(dto)
         console.log(access_token, 'inside controller ');
         res.cookie('access_token', access_token, {
-            maxAge: 30 * 10000 ,
+            maxAge: 30 * 1000,
             sameSite: 'strict',
             httpOnly: true,
         })
