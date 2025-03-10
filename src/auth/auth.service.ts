@@ -73,7 +73,7 @@ export class AuthService {
         }
         const secret = this.config.get('JWT_SECRET')!
         const token = await this.jwt.signAsync(payload, {
-            expiresIn: "15m",
+            expiresIn: "15hr",
             secret: secret
         })
         return {
@@ -82,9 +82,10 @@ export class AuthService {
     }
 
     async getUsersForSidebar(loggedUserId: Types.ObjectId) {
+        console.log(loggedUserId, 'inside auth service get user for sidebar hehehe====<<<<<')
         return await this.userModel.find({ _id: { $ne: loggedUserId } }).select("-password")
     }
     logout() {
-        return 'logout success'
+        return { message: "logout success" }
     }
 }

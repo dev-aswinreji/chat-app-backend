@@ -8,7 +8,7 @@ export class UserService {
         private readonly userModel: AuthService
     ) { }
     getUserForSidebar(user: User) {
-        const loggedUserId = user._id
+        const loggedUserId = user.id
         return this.userModel.getUsersForSidebar(loggedUserId)
     }
 }
