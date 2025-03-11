@@ -81,7 +81,6 @@ export class AuthService {
     }
 
     async getUsersForSidebar(loggedUserId: Types.ObjectId) {
-        console.log(loggedUserId, 'inside auth service get user for sidebar hehehe====<<<<<')
         return await this.userModel.find({ _id: { $ne: loggedUserId } }).select("-password")
     }
     logout() {
