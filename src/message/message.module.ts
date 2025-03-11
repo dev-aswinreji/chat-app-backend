@@ -4,11 +4,13 @@ import { MessageSchema } from "./schema";
 import { MessageController } from "./message.controller";
 import { ConversationModule } from "src/conversation/conversation.module";
 import { MessageService } from "./message.service";
+import { GatewayModule } from "src/gateway/gateway.module";
 
 @Module({
     imports: [
         MongooseModule.forFeature([{ name: "Message", schema: MessageSchema }]),
-        ConversationModule
+        ConversationModule,
+        GatewayModule
     ],
     controllers: [MessageController],
     providers: [MessageService]

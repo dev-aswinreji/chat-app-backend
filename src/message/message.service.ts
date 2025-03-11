@@ -4,12 +4,14 @@ import mongoose, { Model, Schema } from "mongoose";
 import { Message } from "./interface";
 import { User } from "src/auth/interface";
 import { ConversationService } from "src/conversation/conversation.service";
+import { MyGateWay } from "src/gateway/gateway";
 
 Injectable({})
 export class MessageService {
     constructor(
         @InjectModel('Message') private readonly messageModel: Model<Message>,
         private readonly conversationService: ConversationService,
+        private gateway: MyGateWay
 
     ) { }
 
@@ -24,7 +26,7 @@ export class MessageService {
     }
 
 
-    async sendMessage(user: User, id: string, { message }: Message) {
+    async sendMessage(user: User, { id }: { id: string }, { message }: Message) {
 
         const receiverId = id
         const senderId = user.id
@@ -37,8 +39,11 @@ export class MessageService {
             message
         })
         conversation.messages.push(newMessage._id as mongoose.Types.ObjectId)
+
         await Promise.all([conversation.save(), newMessage.save()])
 
+        //Socket to functionality call will go here
+        this.gateway.getReceiverSocketId(receiverId, newMessage)
         return newMessage
     }
 

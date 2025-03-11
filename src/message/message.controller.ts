@@ -17,7 +17,7 @@ export class MessageController {
     }
 
     @Post('send/:id')
-    sendMessage(@GetUser() user: User, @Param() id: string, @Body() message: Message) {
+    sendMessage(@GetUser() user: User, @Param() id: { id: string }, @Body() message: Message) {
         return this.message.sendMessage(user, id, message)
     }
 

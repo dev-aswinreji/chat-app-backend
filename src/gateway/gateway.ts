@@ -12,23 +12,22 @@ export class MyGateWay implements OnModuleInit {
 
     @WebSocketServer()
     server: Server
-
+    private userSocketMap: Record<string, string> = {}
     onModuleInit() {
-        const userSocketMap = {}
         this.server.on('connection', (socket) => {
             const userId: string | undefined = Array.isArray(socket.handshake.query?.userId)
                 ? socket.handshake.query?.userId[0] // Take the first element if it's an array
                 : socket.handshake.query?.userId; // Use it directly if it's a string
 
-            if (userId !== undefined) userSocketMap[userId] = socket.id
+            if (userId !== undefined) this.userSocketMap[userId] = socket.id
 
-            this.server.emit("getOnlineUsers", Object.keys(userSocketMap))
+            this.server.emit("getOnlineUsers", Object.keys(this.userSocketMap))
 
             socket.on("disconnect", () => {
                 console.log('disconnected', socket.id)
                 if (userId !== undefined)
-                    delete userSocketMap[userId]
-                this.server.emit("getOnlineUsers", Object.keys(userSocketMap))
+                    delete this.userSocketMap[userId]
+                this.server.emit("getOnlineUsers", Object.keys(this.userSocketMap))
             })
         })
     }
@@ -41,6 +40,10 @@ export class MyGateWay implements OnModuleInit {
     //         content: body
     //     })
     // }
-
+    getReceiverSocketId(receiverId: string, newMessage: any) {
+        const receiverSocketId = this.userSocketMap[receiverId]
+        if (receiverSocketId)
+            this.server.to(receiverSocketId).emit("newMessage", newMessage)
+    }
 
 }
