@@ -6,7 +6,7 @@ import { MessageService } from "./message.service";
 import { Message } from "./interface";
 
 @UseGuards(AuthGuard('jwt'))
-@Controller('message')
+@Controller('messages')
 export class MessageController {
     constructor(private message: MessageService) { }
 

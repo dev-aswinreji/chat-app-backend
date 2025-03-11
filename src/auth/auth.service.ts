@@ -37,6 +37,7 @@ export class AuthService {
         const user = {
             username: dto.username,
             // email: dto.email,
+            fullname: dto.fullname,
             password: dto.password,
             gender: dto.gender,
             profilePic: dto.gender === "male" ? boyProfilePic : girlProfilePic,
@@ -57,7 +58,7 @@ export class AuthService {
         if (!pwMatches) {
             throw new UnauthorizedException(errorMessage)
         }
-        return this.signToken(user.id, user.username)
+        return { access_token: await this.signToken(user.id, user.username), userId: user._id, profilePic: user.profilePic }
 
     }
 
@@ -66,7 +67,7 @@ export class AuthService {
         return drop
     }
 
-    async signToken(userId: number, username: string): Promise<{ access_token: string }> {
+    async signToken(userId: number, username: string): Promise<string> {
         const payload = {
             sub: userId,
             username
@@ -76,9 +77,7 @@ export class AuthService {
             expiresIn: "15hr",
             secret: secret
         })
-        return {
-            access_token: token
-        }
+        return token
     }
 
     async getUsersForSidebar(loggedUserId: Types.ObjectId) {

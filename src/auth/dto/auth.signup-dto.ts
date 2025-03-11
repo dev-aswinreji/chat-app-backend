@@ -5,6 +5,9 @@ export class AuthSignupDto {
     // @IsNotEmpty()
     // @IsEmail()
     // email: string;
+    @IsString()
+    @IsNotEmpty()
+    fullname: string;
 
     @IsString()
     @IsNotEmpty()
