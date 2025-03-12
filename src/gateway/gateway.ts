@@ -4,8 +4,8 @@ import { Server } from "socket.io"
 
 @WebSocketGateway({
     cors: {
-        origin: ["https://levorah.vercel.app", "http://localhost:5173","http://localhost:3000"],
-    }
+        origin: "https://levorah.vercel.app",
+    },
 })
 export class MyGateWay implements OnModuleInit {
 
